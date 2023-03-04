@@ -1,30 +1,40 @@
 function setup() {
-  let d = 70;
-  let p1 = d;
-  let p2 = p1 + d;
-  let p3 = p2 + d;
-  let p4 = p3 + d;
-
-  // Define el lienzo de 720 pixeles de ancho y 400 de alto
   createCanvas(720, 400);
-  background(0);
-  noSmooth();
+}
 
-  translate(140, 0);
+function draw() {
+  background(102);
 
-  // Dibuja una caja gris
-  stroke(153);
-  line(p3, p3, p2, p3);
-  line(p2, p3, p2, p2);
-  line(p2, p2, p3, p2);
-  line(p3, p2, p3, p3);
+  push();
+  translate(width * 0.2, height * 0.5);
+  rotate(frameCount / 200.0);
+  star(0, 0, 5, 70, 3);
+  pop();
 
-  // Dibuja puntos blancos
-  stroke(255);
-  point(p1, p1);
-  point(p1, p3);
-  point(p2, p4);
-  point(p3, p1);
-  point(p4, p2);
-  point(p4, p4);
+  push();
+  translate(width * 0.5, height * 0.5);
+  rotate(frameCount / 50.0);
+  star(0, 0, 80, 100, 40);
+  pop();
+
+  push();
+  translate(width * 0.8, height * 0.5);
+  rotate(frameCount / -100.0);
+  star(0, 0, 30, 70, 5);
+  pop();
+}
+
+function star(x, y, radius1, radius2, npoints) {
+  let angle = TWO_PI / npoints;
+  let halfAngle = angle / 2.0;
+  beginShape();
+  for (let a = 0; a < TWO_PI; a += angle) {
+    let sx = x + cos(a) * radius2;
+    let sy = y + sin(a) * radius2;
+    vertex(sx, sy);
+    sx = x + cos(a + halfAngle) * radius1;
+    sy = y + sin(a + halfAngle) * radius1;
+    vertex(sx, sy);
+  }
+  endShape(CLOSE);
 }
